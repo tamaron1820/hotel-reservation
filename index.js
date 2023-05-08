@@ -3,11 +3,19 @@
 (function () {
   window.addEventListener("load", init);
 
+  /**
+   * Initializes the application by adding a 'submit' event listener to the review form.
+   */
   function init() {
     let review = id("reviewForm");
     review.addEventListener("submit", submitForm);
   }
 
+  /**
+   * Submits the review form, preventing the page from refreshing and adding a new review to the page.
+   *
+   * @param {Event} event - The submit event.
+   */
   function submitForm(event) {
     event.preventDefault(); // prevent page refresh
     let rating = document.querySelector('input[name="rate"]:checked').value;
@@ -27,6 +35,12 @@
     document.querySelector('input[name="rate"]:checked').checked = false;
   }
 
+  /**
+   * Generates a string of stars based on the rating value.
+   *
+   * @param {number} rating - The rating value.
+   * @returns {string} A string of stars representing the rating value.
+   */
   function generateStars(rating) {
     let stars = "";
     for (let i = 5; i > 0; i--) {
@@ -39,13 +53,17 @@
     return stars;
   }
 
-
   // Event listener for star rating
   let starRadios = document.querySelectorAll('input[name="rate"]');
   starRadios.forEach(radio => {
     radio.addEventListener("click", updateStars);
   });
 
+  /**
+   * Updates the star rating based on the selected value.
+   *
+   * @param {Event} event - The click event.
+   */
   function updateStars(event) {
     let rating = event.target.value;
     let starLabels = document.querySelectorAll('.rate-form label');
@@ -60,9 +78,10 @@
   }
 
   /**
-   * Return the element with specified ID attribute
-   * @param {string} id - element ID
-   * @returns {HTMLElement} DOM object associated with id.
+   * Returns the element with the specified ID attribute.
+   *
+   * @param {string} id - The ID attribute.
+   * @returns {HTMLElement} The DOM object associated with the ID attribute.
    */
   function id(id) {
     return document.getElementById(id);
