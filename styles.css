@@ -319,7 +319,7 @@ input[type="submit"]:hover {
   background: currentcolor;
 }
 
-.dli-arrow-left::before {
+.dli-arrow-left:before {
   content: '';
   width: 0.65em;
   height: 0.65em;
