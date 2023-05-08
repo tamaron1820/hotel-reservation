@@ -11,6 +11,7 @@
 (function() {
   window.addEventListener("load", init);
   const MAX_STARS = 5;
+
   /**
    * Initializes the application by adding a 'submit' event listener to the review form.
    */
