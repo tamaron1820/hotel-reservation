@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <!--
   Name: Tastuhiko Araki, Luna Osaki
@@ -10,168 +9,47 @@
   a crytogram generator.
 -->
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="styles.css">
     <title>Hotel Website</title>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&family=Limelight&display=swap"
-    rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&family=Limelight&display=swap" rel="stylesheet">
     <script src="website.js"></script>
-  </head>
-  <body>
-    <div id = attributeOne>
-    <section class="main-page">
-      <h1>HOTEL NAME/LOGO</h1>
-    </section>
-    <section id="main-menu">
-      <h2>MAIN MENU</h2>
-       <ul>
-        <li>
-          <div class="rooms">
-            <span>ROOMS</span>
-            <a href="roomList.html"><img src="img/rooms.png" alt="room image"></a>
-          </div>
-         </li>
-         <li>
-          <div class="dinings">
-            <span>DININGS</span><img src="img/dining.png" alt="dining image">
-              <section id="dining-details" class="hidden">
-                <h3>DININGS</h3>
-                <div id="dining-description">
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean et turpis
-                    pellentesque, lobortis elit quis, pharetra felis. Maecenas volutpat tortor
-                    a diam blandit pulvinar. Aenean sit amet libero nibh. In leo purus, ornare
-                    ut nibh vel, varius eleifend quam. Morbi fringilla, sem in dignissim
-                    pellentesque, orci dui convallis ex, id venenatis metus arcu non enim.
-                  </p>
-                  <img src="img/meal.png" alt="meal image">
-                  <button id="back-btn">Back to Main</button>
-                 </div>
-              </section>
-          </div>
-         </li>
-         <li>
-          <div class="bookings">
-            <span>MAKE BOOKINGS</span><img src="img/booking.png" alt="booking image">
-          </div>
-         </li>
-         <li>
-          <div class="contacts">
-            <span>CONTACTS</span><img src="img/contact.png" alt="contact image">
-            <section id="contact-details" class="hidden">
-              <h3>CONTACTS</h3>
-              <div id="contact-info">
-                <p>TEL: <strong><span id="number"> 206-123-4567</span></strong></p>
-                <p>E-MAIL: <strong><span class="mail-address"> imdying@gmail.com</span></strong></p>
-                <p>ADDRESS: <strong><span class="mail-address"> 98000 Idontknow whatimdoing Seattle, WA</span></strong></p>
-                <button id="back-btn">Back to Main</button>
-               </div>
-            </section>
-          </div>
-         </li>
-        </ul>
-      </section>
-    </div>
-       <!-- <div class="vcds">
-          <img src="img/greengroove.jpg" alt="Green Groove poster">
-          <img src="img/not-for-love-front.jpg" alt="Not for love cover.jpg">
-          <img src="img/woofstock-poster-final.jpg" alt="Woof Stock poster">
-          <img src="img/the-hauntedpair-cover-final-copy.jpg" alt="Haunted pair cover">
-          <img src="img/springthing2022.png" alt="Spring Thing poster">
-        </div>
-      </article>
-      <button class="button-styled">Click for more!</button>
-      <h3>Illuatrations</h3>
-      <article class="images">
-        <div id="illuatrations">
-        <div class="illust-container">
-          <img src="img/nekoya.jpg" alt="japanese summer food truck">
-          <div class="hearts-hidden hidden">
-            <img src="img/yellowheartshape.png" alt="Likes">
-            </div>
-          </div>
-        <div class="illust-container">
-          <img src="img/seasonchange.jpg" alt="changing era">
-          <div class="hearts-hidden hidden">
-            <img src="img/yellowheartshape.png" alt="Likes">
-            </div>
-          </div>
-        <div class="illust-container">
-          <img src="img/the-town2.jpg" alt="The town">
-          <div class="hearts-hidden hidden">
-            <img src="img/yellowheartshape.png" alt="Likes">
-            </div>
-          </div>
-        <div class="illust-container">
-          <img src="img/mononoke.jpg" alt="mononoke fanart">
-          <div class="hearts-hidden hidden">
-            <img src="img/yellowheartshape.png" alt="Likes">
-            </div>
-          </div>
-        </div>
-      </article>
-      <p>Click on images you like!</p>
-      <h3>Logo designs</h3>
-      <article class="images">
-        <div id="logos">
-          <img src="img/sign-copy-01.jpg" alt="sign">
-          <img src="img/huskyjam.jpg" alt="huskyjamlogo">
-          <img src="img/kaede-logo.jpg" alt="kaedelogo">
-        </div>
-      </article>
-      </section>
-    <h2>Profile</h2>
-    <section id="profile">
-      <ol>
-        <li><strong>Education: </strong><span class="contents">University of Washington(2021-25)
-          Visual Communication Design major</span></li>
-        <li><strong>Favorite food: </strong><span class="contents">Ramen at 3 am</span></li>
-        <li><strong>Favorite movie: </strong>
-          <ul>
-            <li><span class="contents">The Shawshank Redemption</span></li>
-            <li><span class="contents">Miserables</span></li>
-            <li><span class="contents">21 Jump Street</span></li>
-            </ul>
-          </li>
-        <li><strong>Favorite hobby: </strong><span class="contents">Drawing</span></li>
-        <li><strong>Favorite typeface: </strong><span class="contents">Mostra Nuova</span>
-        <a href="https://allbestfonts.com/mostra-nuova/">What is it?</a></li>
-        </ol>
-      </section>
-    <h2>Skill</h2>
-    <section id="skill">
-      <ul>
-        <li>Photoshop</li>
-        <li>Illuatrations</li>
-        <li>After Effects</li>
-        <li>ClipStudioPaint</li>
-        <li>Indesign</li>
-        </ul>
-      </section>
-    <h2>Artists I admire</h2>
-    <section id="artists">
-      <ul>
-        <li>Yuni Yoshida<a href="http://www.yuni-yoshida.com/" target="_blank" title="Yuni Yoshida website">
-          Her website here </a></li>
-        <li>Karin Fong<a href="https://imaginaryforces.com/bio/karin-fong" target="_blank" title="imaginaryforces website">
-          Her website here</a></li>
-        </ul>
-      </section>
+</head>
 
-    <h2>Any requests?</h2>
-    <section id="req">
-      <section id="info">
-        <label for="date">Date:</label>
-        <input id="date" type="text">
-        <label for="entry">Requests:</label>
-        <textarea id="entry"></textarea>
-        <button class="button-styled button-entry">Submit!</button>
+<body>
+    <div id=attributeOne>
+        <section id="main-menu">
+            <h2 id="main-menu-text">MAIN MENU</h2>
+            <section id="contents">
+            <article class="rooms">
+                <div class="text-container">
+                    <a href="roomList.html"><img src="img/rooms.png" alt="room image"></a>
+                    <p id="room-text">ROOMS</p>
+                </div>
+            </article>
+            <article class="dinings">
+                <div class="text-container">
+                    <a href="dining.html"><img src="img/dining.png" alt="dining image"></a>
+                    <p id="room-text">DININGS</p>
+                </div>
+            </article>
+            <article class="dinings">
+                <div class="text-container">
+                    <a href="roomList.html"><img src="img/booking.png" alt="booking image"></a>
+                    <p id="room-text">MAKE BOOKINGS</p>
+                </div>
+            </article>
+            <article class="contacts">
+                <div class="text-container">
+                    <a href="contacts.html"><img src="img/contact.png" alt="contact image"></a>
+                    <p id="room-text">CONTACTS</p>
+                </div>
+            </article>
+            </section>
         </section>
-      <section id="posts">
-        <h3>Your requests!</h3>
-        </section>
-      </section>
-    -->
-    </body>
-  </html>
+    </div>
+</body>
+
+</html>
