@@ -1,0 +1,57 @@
+body {
+  background-image: url("img/room-background.png");
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+#login, #choose-stay {
+  background-color: rgba(255, 255, 255, 0.75);
+  padding: 30px;
+  width: 60%;
+  height: 400px;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 200px;
+}
+
+#back-from-login, #back-from-serch {
+  width: 20px;
+  height: 20px;
+  border-top: 2px solid white;
+  border-right: 2px solid white;
+  transform: rotate(225deg);
+  background-color: transparent;
+  display: inline-block;
+}
+
+#text-from-login, #text-from-serch {
+  display: inline-block
+}
+
+h2 {
+  text-align: center;
+  font-size: 35px;
+}
+
+#login .entry, #choose-stay .entry {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+
+#login #login-btn, #choose-stay #serch-btn {
+  border: 1px solid #000;
+  border-radius: 0;
+  background: #fff;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+}
+
+#login #login-btn:hover {
+  color: #fff;
+  background: #000;
+}
