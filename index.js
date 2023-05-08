@@ -8,9 +8,9 @@
  */
 "use strict";
 
-(function () {
+(function() {
   window.addEventListener("load", init);
-
+  const MAX_STARS = 5;
   /**
    * Initializes the application by adding a 'submit' event listener to the review form.
    */
@@ -52,7 +52,7 @@
    */
   function generateStars(rating) {
     let stars = "";
-    for (let i = 5; i > 0; i--) {
+    for (let i = MAX_STARS; i > 0; i--) {
       if (i <= rating) {
         stars += "<span class=\"selected\">★</span>";
       } else {
