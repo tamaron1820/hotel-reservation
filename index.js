@@ -16,7 +16,7 @@
    * Initializes the application by adding a 'submit' event listener to the review form.
    */
   function init() {
-    let review = id("reviewForm");
+    let review = id("review-form");
     review.addEventListener("submit", submitForm);
   }
 
@@ -29,8 +29,8 @@
   function submitForm(event) {
     event.preventDefault(); // prevent page refresh
     let rating = document.querySelector('input[name="rate"]:checked').value;
-    let title = id("reviewerName").value;
-    let comment = id("reviewText").value;
+    let title = id("reviewer-name").value;
+    let comment = id("comment-text").value;
     let reviewContainer = id("reviews");
     let newReview = document.createElement("article");
     newReview.classList.add("review", "submit-all-form");
@@ -40,8 +40,8 @@
     reviewContainer.appendChild(newReview);
 
     // Clear form inputs
-    id("reviewerName").value = "";
-    id("reviewText").value = "";
+    id("reviewer-name").value = "";
+    id("comment-text").value = "";
     document.querySelector('input[name="rate"]:checked').checked = false;
   }
 
