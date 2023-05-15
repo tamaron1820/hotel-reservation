@@ -5,13 +5,12 @@ body {
 }
 
 #main-menu {
-  width: auto;
-  height: 850px;
   margin-bottom: 20px;
   margin-left: auto;
   margin-right: auto;
   margin-top: 10px;
   background-color: rgba(255, 255, 255, 0.9);
+  background-size: contain;
   padding: 50px 150px;
 }
 
