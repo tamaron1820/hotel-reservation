@@ -16,10 +16,25 @@
    * Initializes the application by adding a 'submit' event listener to the review form.
    */
   function init() {
-    let review = id("review-form");
-    review.addEventListener("submit", submitForm);
+    let loginButton = document.getElementById("login-btn");
+    let registration = document.getElementById("register");
+    let registerlink = document.getElementById("register-link");
+    let registerBack = document.getElementById("register-from-login");
+    loginButton.addEventListener("click", login);
+    registration.addEventListener("click", registrationForm);
+    registerlink.addEventListener("click", handleRegisterLink);
+    registerBack.addEventListener("click", handleBackFromRegister);
   }
 
+  function handleRegisterLink() {
+    id("register").classList.remove("hidden");
+    id("login").classList.add("hidden");
+  }
+
+  function handleBackFromRegister() {
+    id("register").classList.add("hidden");
+    id("login").classList.remove("hidden");
+  }
   /**
    * Submits the review form, preventing the page from refreshing and adding
    * a new review to the page.
@@ -43,6 +58,33 @@
     id("reviewer-name").value = "";
     id("comment-text").value = "";
     document.querySelector('input[name="rate"]:checked').checked = false;
+  }
+
+  function login() {
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+
+    let user = {
+      username: username,
+      password: password
+    };
+
+    fetch('/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Login failed");
+      }
+      window.location.href = "index.html";
+    })
+    .catch(error => {
+      console.error("Error:", error);
+    });
   }
 
   /**
@@ -86,6 +128,44 @@
       }
     }
   }
+
+  /**
+   * Submits the registration form, preventing the page from refreshing and sending
+   * a new user registration request to the server.
+   *
+   * @param {Event} event - The submit event.
+   */
+  function registrationForm(event) {
+    event.preventDefault(); // prevent page refresh
+
+    let username = document.getElementById("new-username").value;
+    let password = document.getElementById("new-password").value;
+
+    let user = {
+      username: username,
+      password: password
+    };
+
+    fetch('/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response.text();
+    })
+    .then(message => {
+      console.log(message); // Registration success message
+      // Redirect to login page or somewhere else upon successful registration...
+    })
+    .catch(error => console.error('Error:', error));
+  }
+
 
   /**
    * Returns the element with the specified ID attribute.
