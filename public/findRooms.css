@@ -1,0 +1,22 @@
+body {
+  background-image: url("img/room-background.png");
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+#menu-view {
+  background-color: rgba(255, 255, 255, 0.75);
+  padding: 30px;
+  width: 60%;
+  height: 400px;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 150px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 35px;
+  margin: 20px;
+}
