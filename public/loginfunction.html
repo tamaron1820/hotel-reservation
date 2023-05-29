@@ -15,7 +15,7 @@
 </head>
 
 <body>
-  <section id="login">
+  <form id="login-form">
     <h2>LOG IN</h2>
     <section class="entry">
     <label for="username">Username</label>
@@ -25,11 +25,11 @@
     <label for="password">Password</label>
     <input id="password" class="entry-box" type="text">
       </div>
-    <button id="login-btn" onclick="location.href='filter.html'">LOG IN</button>
+    <button id="login-btn" type="submit">LOG IN</button>
       <button id="back-from-login" onclick="location.href='index.html'"></button>
       <p class="text-from-login">Back to Main</p>
       <button id="register-link">Create New Account</button>
-    </section>
+    </form>
     <form id="register" class="hidden">
       <h2>REGISTER</h2>
       <section class="entry">
@@ -38,11 +38,9 @@
       </section>
       <div class="entry">
         <label for="new-password">New Password</label>
-        <input id="new-password" class="entry-box" type="text">
+        <input id="new-password" class="entry-box" type="password">
       </div>
       <button id="register-btn" type="submit">REGISTER</button>
-      <button id="register-from-login" ></button>
-      <p class="text-from-login">Back to Login</p>
     </form>
   </body>
 </html>

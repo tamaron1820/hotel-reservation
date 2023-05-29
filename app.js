@@ -3,59 +3,64 @@ const bodyParser = require('body-parser');
 const sqlite3 = require('sqlite3');
 const sqlite = require('sqlite');
 const multer = require('multer');
+const cors = require('cors');
 const app = express();
 const CORRECT_RESPONSE = 200;
 const ERROR_RESPONSE = 400;
 const PORT_NUM = 8080;
+
+app.use(cors());
 
 // parse application/json
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(multer().none());
 
-// create a new database connection
-let db = new sqlite3.Database(':memory:', (err) => {
-  if (err) {
-    return console.error(err.message);
-  }
-  console.log('Connected to the in-memory SQlite database.');
-});
-
 app.post('/login', async (req, res) => {
   try {
-    await getDBConnection();
+    const db = await getDBConnection();
     let user = req.body;
-    db.get('SELECT * FROM users WHERE username = ? AND password = ?', [user.username, user.password], (err, row) => {
-      if (err) {
-        return console.error(err.message);
-      }
-      if (row) {
-        res.status(200).send();
-      } else {
-        res.status(401).send("Invalid username or password");
-      }
-    });
+
+    const existingUser = await db.get('SELECT * FROM users WHERE username = ? AND password = ?', [user.username, user.password]);
+    if (!existingUser) {
+      res.status(ERROR_RESPONSE).send("Invalid username or password");
+      return;
+    }
+
+    res.status(CORRECT_RESPONSE).send();
+    console.log("login success");
   } catch (err) {
     console.error(err);
+    res.status(ERROR_RESPONSE).send("Login failed");
   }
 });
 
-// POST /register to register a new user
+
 app.post('/register', async (req, res) => {
   try {
-    await getDBConnection();
+    const db = await getDBConnection();
     let user = req.body;
-    db.run('INSERT INTO users(username, password) VALUES(?, ?)', [user.username, user.password], function(err) {
+
+    // ユーザー名の一意性を確認する
+    const existingUser = await db.get('SELECT * FROM users WHERE username = ?', [user.username]);
+    if (existingUser) {
+      res.status(ERROR_RESPONSE).send("Username already exists");
+      return;
+    }
+
+    // 新しいユーザーを登録する
+    db.run('INSERT INTO users (username, password) VALUES (?, ?)', [user.username, user.password], function(err) {
       if (err) {
-        res.status(400).send({ error: err.message });
-        return;
+        console.error(err.message);
+        res.status(ERROR_RESPONSE).send("Registration failed");
+      } else {
+        res.status(CORRECT_RESPONSE).send();
       }
-      // Return the new user's ID to the client
-      res.status(201).send({ id: this.lastID });
+      console.log("register success");
     });
   } catch (err) {
     console.error(err);
-    res.status(500).send({ error: "Failed to register user" });
+    res.status(ERROR_RESPONSE).send("Registration failed");
   }
 });
 
@@ -72,7 +77,28 @@ async function getDBConnection() {
   });
   return db;
 }
+async function checkDBConnection() {
+  const db = await getDBConnection();
+  console.log('DB connection successful');
+}
+
+// テーブルの存在を確認
+async function checkTableExists() {
+  const db = await getDBConnection();
+  const rows = await db.all('SELECT * FROM users ');
+  console.log(rows); // テーブルの一覧が表示されます
+}
+
+(async function() {
+  await checkDBConnection();
+  await checkTableExists();
+})();
 
 app.use(express.static("public"));
 const PORT = process.env.PORT || PORT_NUM;
-app.listen(PORT);
+const server = app.listen(PORT, 'localhost');
+server.on('listening', function() {
+  console.log('Express server started on port %s at %s', server.address().port, server.address().address);
+});
+
+
