@@ -34,7 +34,7 @@ h2 {
   font-size: 35px;
 }
 
-#login-form .entry, #choose-stay .entry {
+#login-form .entry, #choose-stay .entry, {
   text-align: center;
   margin-left: auto;
   margin-right: auto;
