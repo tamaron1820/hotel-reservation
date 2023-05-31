@@ -64,6 +64,33 @@ app.post('/register', async (req, res) => {
   }
 });
 
+app.post('/book-room', async (req, res) => {
+  try {
+    const db = await getDBConnection();
+    let roomType = req.body.roomtype;
+
+    const room = await db.get('SELECT * FROM roomtypes WHERE roomtype = ?', [roomType]);
+    if (!room) {
+      res.status(ERROR_RESPONSE).send("Room type not found");
+      return;
+    }
+
+    if (room.number <= 0) {
+      res.status(ERROR_RESPONSE).send("No room available");
+      return;
+    }
+
+    await db.run('UPDATE roomtypes SET number = number - 1 WHERE roomtype = ?', [roomType]);
+    res.status(CORRECT_RESPONSE).json({message: "Room booked successfully"});
+  } catch (err) {
+    console.error(err);
+    res.status(ERROR_RESPONSE).send("Failed to book room");
+  }
+});
+
+
+
+
 
 /**
  * Establishes a database connection to the database and returns the database object.
@@ -72,11 +99,12 @@ app.post('/register', async (req, res) => {
  */
 async function getDBConnection() {
   const db = await sqlite.open({
-    filename: 'login.db',
+    filename: 'roomtype.db',
     driver: sqlite3.Database
   });
   return db;
 }
+
 async function checkDBConnection() {
   const db = await getDBConnection();
   console.log('DB connection successful');
@@ -85,7 +113,7 @@ async function checkDBConnection() {
 // テーブルの存在を確認
 async function checkTableExists() {
   const db = await getDBConnection();
-  const rows = await db.all('SELECT * FROM users ');
+  const rows = await db.all('SELECT * FROM roomtypes ');
   console.log(rows); // テーブルの一覧が表示されます
 }
 

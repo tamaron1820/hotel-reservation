@@ -16,12 +16,14 @@
    * Initializes the application by adding a 'submit' event listener to the review form.
    */
   function init() {
-    let registerlink = document.getElementById("register-link");
-    let loginForm = document.getElementById("login-form");
-  loginForm.addEventListener("submit", login);
-    registerlink.addEventListener("click", handleRegisterLink);
-    let registerForm = document.getElementById("register");
-    registerForm.addEventListener("submit", handleRegistrationForm);
+    //let registerlink = document.getElementById("register-link");
+    //let loginForm = document.getElementById("login-form");
+    //loginForm.addEventListener("submit", login);
+    //registerlink.addEventListener("click", handleRegisterLink);
+    //let registerForm = document.getElementById("register");
+    //registerForm.addEventListener("submit", handleRegistrationForm);
+    let bookBtn = document.getElementById("book-btn");
+    bookBtn.addEventListener("click", bookRoom);
   }
 
 
@@ -100,7 +102,38 @@
     handleBackFromRegister();
   }
 
+  /**
+   * Handles the room booking process.
+   */
+  function bookRoom(event) {
+    event.preventDefault();
+    let roomtype = document.querySelector("select[name='dropdown']").value;
+    let room = {
+      roomtype: roomtype
+    };
+    fetch('/book-room', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(room)
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Booking failed");
+        }
+        window.location.href = "confirmation.html";
+      })
+      .catch(error => {
+        console.error("Error:", error);
+      });
+      document.getElementById("firstname").value = "";
+  document.getElementById("lastname").value = "";
+  document.getElementById("address").value = "";
+  document.getElementById("email").value = "";
+  document.getElementById("phonenumber").value = "";
 
+}
   /**
    * Returns the element with the specified ID attribute.
    *
