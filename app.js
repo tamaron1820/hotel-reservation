@@ -68,6 +68,14 @@ app.post('/book-room', async (req, res) => {
   try {
     const db = await getDBConnection();
     let roomType = req.body.roomtype;
+    let username = req.body.username;
+
+    // 同じユーザー名で既に予約が存在するか確認する
+    const existingBooking = await db.get('SELECT * FROM bookings WHERE username = ?', [username]);
+    if (existingBooking) {
+      res.status(ERROR_RESPONSE).send("User already has a booking");
+      return;
+    }
 
     const room = await db.get('SELECT * FROM roomtypes WHERE roomtype = ?', [roomType]);
     if (!room) {
@@ -80,7 +88,10 @@ app.post('/book-room', async (req, res) => {
       return;
     }
 
+    let confirmationNumber = generateConfirmationNumber();
     await db.run('UPDATE roomtypes SET number = number - 1 WHERE roomtype = ?', [roomType]);
+    await db.run('INSERT INTO bookings (username, roomtype, date, confirmation_number) VALUES (?, ?, CURRENT_DATE, ?)',
+      [username, roomType, confirmationNumber]);
     res.status(CORRECT_RESPONSE).json({message: "Room booked successfully"});
   } catch (err) {
     console.error(err);
@@ -90,7 +101,16 @@ app.post('/book-room', async (req, res) => {
 
 
 
+function generateConfirmationNumber() {
+  let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let confirmationNumber = '';
 
+  for (let i = 0; i < 10; i++) {
+    confirmationNumber += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+
+  return confirmationNumber;
+}
 
 /**
  * Establishes a database connection to the database and returns the database object.
@@ -128,5 +148,3 @@ const server = app.listen(PORT, 'localhost');
 server.on('listening', function() {
   console.log('Express server started on port %s at %s', server.address().port, server.address().address);
 });
-
-

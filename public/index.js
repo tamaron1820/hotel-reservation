@@ -24,6 +24,8 @@
     //registerForm.addEventListener("submit", handleRegistrationForm);
     let bookBtn = document.getElementById("book-btn");
     bookBtn.addEventListener("click", bookRoom);
+    //let username = getUsername();
+    //displayBookingHistory(username);
   }
 
 
@@ -49,7 +51,8 @@
         if (!response.ok) {
           throw new Error("Login failed");
         }
-        window.location.href = "filter.html";
+        localStorage.setItem('username', data.username);
+        window.location.href = "bookinghistory.html";
       })
       .catch(error => {
         console.error("Error:", error);
@@ -107,33 +110,78 @@
    */
   function bookRoom(event) {
     event.preventDefault();
+
+    let username = document.getElementById("username").value;
     let roomtype = document.querySelector("select[name='dropdown']").value;
-    let room = {
+
+    let booking = {
+      username: username,
       roomtype: roomtype
     };
+
     fetch('/book-room', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(room)
+      body: JSON.stringify(booking)
     })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error("Booking failed");
-        }
-        window.location.href = "confirmation.html";
-      })
-      .catch(error => {
-        console.error("Error:", error);
-      });
-      document.getElementById("firstname").value = "";
-  document.getElementById("lastname").value = "";
-  document.getElementById("address").value = "";
-  document.getElementById("email").value = "";
-  document.getElementById("phonenumber").value = "";
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Booking failed");
+      }
+      return response.json(); // parse response as JSON
+    })
+    .then(data => {
+      // save confirmation number to localStorage
+      localStorage.setItem('confirmationNumber', data.confirmationNumber);
+      window.location.href = "confirmation.html";
+    })
+    .catch(error => {
+      console.error("Error:", error);
+    });
 
+    document.getElementById("username").value = "";
+    document.getElementById("address").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("phonenumber").value = "";
+  }
+
+
+async function getBookingHistory(username) {
+  try {
+    const response = await fetch(`/booking-history?username=${username}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    } else {
+      return await response.json();
+    }
+  } catch (error) {
+    console.error(error);
+  }
 }
+
+// This function displays the booking history on the webpage
+function displayBookingHistory() {
+  let username = localStorage.getItem('username');
+  if (!username) {
+    // user is not logged in, do not display booking history
+    return;
+  }
+  getBookingHistory(username)
+    .then(bookings => {
+      let bookingList = document.getElementById('booking-list');
+      bookingList.innerHTML = '';
+
+      bookings.forEach(booking => {
+        let listItem = document.createElement('li');
+        listItem.textContent = `Room Type: ${booking.roomtype}, Date: ${booking.date}, Confirmation Number: ${booking.confirmation_number}`;
+        bookingList.appendChild(listItem);
+      });
+    });
+}
+
+
   /**
    * Returns the element with the specified ID attribute.
    *
