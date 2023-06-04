@@ -3,8 +3,8 @@
  * Date: May 23, 2023
  * Section: CSE 154 AA
  *
- * This is the JS file that implements the yipper application of server side JS
- * This program displays all of end points of this yipper page.
+ * This is the JS file that implements the hotel reservation site of server side JS
+ * This program displays all of end points of this hotel page.
  */
 "use strict";
 const express = require('express');

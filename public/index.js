@@ -1,10 +1,10 @@
 /*
  * Name: Tastuhiko Araki, Luna Osaki
- * Date: 05.05.2023
+ * Date: June 4.2023
  * Section: CSE 154 AA, AF
  *
  * This is the JS file to implement the UI for hotel reservation page
- * This program control review page of the reservation service
+ * The program defines actions for all elements.
  */
 "use strict";
 

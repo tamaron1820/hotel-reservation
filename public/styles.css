@@ -1,3 +1,10 @@
+/*
+  Name: Tatsuhiko Araki, Luna Osaki
+  Date: June 4.2023
+  Section: CSE 154 AA, AF
+  This is the styles.css page of web development work.
+  This CSS defines the content used for all pages.
+*/
 body {
   background-image: url("img/lobby.png");
   background-size: cover;
