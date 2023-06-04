@@ -1,3 +1,11 @@
+/*
+ * Name: Tatsuhiko Araki
+ * Date: May 23, 2023
+ * Section: CSE 154 AA
+ *
+ * This is the JS file that implements the yipper application of server side JS
+ * This program displays all of end points of this yipper page.
+ */
 "use strict";
 const express = require('express');
 const sqlite3 = require('sqlite3');
@@ -8,6 +16,7 @@ const app = express();
 const CORRECT_RESPONSE = 200;
 const ERROR_RESPONSE = 400;
 const PORT_NUM = 8080;
+const RANDOM_CONFIRMATION = 10;
 
 app.use(cors());
 
@@ -34,7 +43,6 @@ app.post('/login', async (req, res) => {
     }
 
     res.status(CORRECT_RESPONSE).send();
-    console.log("login success");
   } catch (err) {
     console.error(err);
     res.status(ERROR_RESPONSE).send("Login failed");
@@ -63,7 +71,6 @@ app.post('/register', async (req, res) => {
       } else {
         res.status(CORRECT_RESPONSE).send();
       }
-      console.log("register success");
     });
   } catch (err) {
     console.error(err);
@@ -112,7 +119,7 @@ app.post('/submit-review', async (req, res) => {
       [review.username, review.rating, review.title, review.comment]
     );
 
-    res.status(CORRECT_RESPONSE).json({ message: "Review submitted successfully" });
+    res.status(CORRECT_RESPONSE).json({message: "Review submitted successfully"});
   } catch (err) {
     console.error(err);
     res.status(ERROR_RESPONSE).send("Failed to submit review");
@@ -142,7 +149,7 @@ function generateConfirmationNumber() {
   let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   let confirmationNumber = '';
 
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < RANDOM_CONFIRMATION; i++) {
     confirmationNumber += characters.charAt(Math.floor(Math.random() * characters.length));
   }
 
@@ -161,32 +168,6 @@ async function getDBConnection() {
   });
   return db;
 }
-
-/**
- * Checks the database connection by establishing a connection.
- * Prints a success message to the console if the connection is successful.
- */
-async function checkDBConnection() {
-  const db = await getDBConnection();
-  console.log('DB connection successful');
-}
-
-/**
- * Checks if the "roomtypes" table exists in the database.
- * Executes a query to retrieve all rows from the table.
- */
-async function checkTableExists() {
-  const db = await getDBConnection();
-  const rows = await db.all('SELECT * FROM roomtypes ');
-}
-
-/**
- * Immediately-invoked async function to check the database connection and table existence on server startup.
- */
-(async function() {
-  await checkDBConnection();
-  await checkTableExists();
-})();
 
 app.use(express.static("public"));
 const PORT = process.env.PORT || PORT_NUM;
