@@ -44,6 +44,17 @@
     backFromDining.addEventListener('click', backDining);
     let backFromConfirmation= id("back-from-confiramtion");
     backFromConfirmation.addEventListener('click', backConfirmation);
+    let changeFilter = id("fil-button");
+    changeFilter.addEventListener('click', changeFilterView);
+    let changeReview = id("review-button");
+    changeReview.addEventListener('click', changeReviewView);
+    let backFromFilter = id("back-from-search");
+    backFromFilter.addEventListener('click', backFilter);
+    let backFromReview = id("back-from-review");
+    backFromReview.addEventListener('click', backReview);
+    let reviewForm = id("review-form");
+    reviewForm.addEventListener('submit', submitReview);
+    getAndDisplayReviews();
   }
 
   function showRoom() {
@@ -91,6 +102,25 @@
     id("confirmation").classList.add("hidden");
   }
 
+  function changeFilterView() {
+    id("main-menu").classList.add("hidden");
+    id("choose-stay").classList.remove("hidden");
+  }
+
+  function backFilter() {
+    id("main-menu").classList.remove("hidden");
+    id("choose-stay").classList.add("hidden");
+  }
+
+  function changeReviewView() {
+    id("main-menu").classList.add("hidden");
+    id("review-menu").classList.remove("hidden")
+  }
+
+  function backReview() {
+    id("main-menu").classList.remove("hidden");
+    id("review-menu").classList.add("hidden");
+  }
   function login(event) {
     event.preventDefault();
 
@@ -209,6 +239,86 @@
     id("phonenumber").value = "";
   }
 
+  function submitReview(event) {
+    event.preventDefault();
+
+    let rating = document.querySelector('input[name="rate"]:checked').value;
+    let title = id("reviewer-name").value;
+    let comment = id("comment-text").value;
+    let username = localStorage.getItem('username');
+
+    let review = {
+      username: username,
+      rating: rating,
+      title: title,
+      comment: comment
+    };
+
+    fetch('/submit-review', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(review)
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Review submission failed");
+        }
+        return response.json(); // parse response as JSON
+      })
+      .then(data => {
+        // success - refresh reviews
+        getAndDisplayReviews();
+      })
+      .catch(error => {
+        console.error("Error:", error);
+      });
+
+    id("reviewer-name").value = "";
+    id("comment-text").value = "";
+    document.querySelector('input[name="rate"]:checked').checked = false;
+  }
+
+  function getAndDisplayReviews() {
+    fetch('/get-reviews')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Failed to get reviews");
+        }
+        return response.json(); // parse response as JSON
+      })
+      .then(data => {
+        // success - display reviews
+        let reviews = id('reviews');
+        reviews.innerHTML = '';
+
+        data.forEach(review => {
+          let reviewElement = document.createElement('div');
+          reviewElement.classList.add('review');
+
+          let starRating = '';
+          for (let i = 0; i < MAX_STARS; i++) {
+            if (i < review.rating) {
+              starRating += '★';
+            } else {
+              starRating += '☆';
+            }
+          }
+
+          reviewElement.innerHTML = `
+            <h2>${review.title}</h2>
+            <p>${starRating}</p>
+            <p>${review.comment}</p>
+          `;
+
+          reviews.appendChild(reviewElement);
+        });
+      })
+      .catch(error => {
+        console.error("Error:", error);
+      });
+  }
 
 async function getBookingHistory(username) {
   try {

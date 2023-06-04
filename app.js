@@ -99,6 +99,37 @@ app.post('/book-room', async (req, res) => {
   }
 });
 
+app.post('/submit-review', async (req, res) => {
+  try {
+    const db = await getDBConnection();
+    let review = req.body;
+
+    // Insert the review into the reviews table
+    await db.run(
+      'INSERT INTO reviews (username, rating, title, comment) VALUES (?, ?, ?, ?)',
+      [review.username, review.rating, review.title, review.comment]
+    );
+
+    res.status(CORRECT_RESPONSE).json({ message: "Review submitted successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(ERROR_RESPONSE).send("Failed to submit review");
+  }
+});
+
+app.get('/get-reviews', async (req, res) => {
+  try {
+    const db = await getDBConnection();
+
+    // Fetch all reviews from the reviews table
+    const reviews = await db.all('SELECT * FROM reviews ORDER BY id DESC');
+
+    res.status(CORRECT_RESPONSE).json(reviews);
+  } catch (err) {
+    console.error(err);
+    res.status(ERROR_RESPONSE).send("Failed to get reviews");
+  }
+});
 
 
 function generateConfirmationNumber() {
@@ -111,6 +142,8 @@ function generateConfirmationNumber() {
 
   return confirmationNumber;
 }
+
+
 
 /**
  * Establishes a database connection to the database and returns the database object.
