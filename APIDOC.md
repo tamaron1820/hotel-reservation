@@ -2,13 +2,13 @@
 *This API is designed to provide backend support for a hotel reservation web service. It provides endpoints for user authentication, room searching, and review posting.*
 
 ## *User Authentication*
-**Request Format:** */api/authenticate*
+**Request Format:** */login*
 
 **Request Type:** *POST*
 
-**Returned Data Format**: Plain Text
+**Returned Data Format**: HTTP status code
 
-**Description:** *This endpoint is used for user authentication. The user provides their credentials and the endpoint returns a token if the credentials are correct.*
+**Description:** *This endpoint is used for user authentication. The user provides their credentials and the endpoint returns a HTTP status code.*
 
 
 **Example Request:** *{
@@ -19,66 +19,114 @@
 
 **Example Response:**
 ```
-token1234abcd
+HTTP status code 200 if credentials are correct.
 ```
 
 **Error Handling:**
-*If the credentials provided are incorrect, the server will return a 401 Unauthorized status code and a message indicating the error.*
+*If the credentials provided are incorrect, the server will return a 400 Bad Request status code with a message "Invalid username or password". If an error occurs during the login process, the server will return a 500 Internal Server Error status code with a message "An error occurred during login".*
 
-## *Room Search*
-**Request Format:** */api/rooms/search*
+## *User Registration*
+**Request Format:** *User Registration*
+
+**Request Type:** *POST*
+
+**Returned Data Format**: HTTP status code
+
+**Description:** * This endpoint is used for user registration. The user provides their credentials and the endpoint returns a HTTP status code.*
+
+**Example Request:**
+```
+{
+  "username": "user1",
+  "password": "password1"
+}
+```
+
+**Example Response:**
+HTTP status code 200 if registration is successful.
+
+**Error Handling:**
+*If the username already exists, the server will return a 400 Bad Request status code with a message "Username already exists". If an error occurs during the registration process, the server will return a 500 Internal Server Error status code with a message "An error occurred during registration".*
+
+## *Room Booking*
+**Request Format:** * /book-room*
+
+**Request Type:** *POST*
+
+**Returned Data Format**: JSON
+
+**Description:** *This endpoint is used to book a room. It checks if the requested room type is available and books the room if it is.*
+
+**Example Request:** *{
+  "username": "user1",
+  "roomtype": "deluxe"
+}
+*
+
+**Example Response:**
+*{
+  "message": "Room booked successfully"
+}
+*
+
+
+**Error Handling:**
+*If the room is not available, the server will return a 400 Bad Request status code with a message "No room available". If an error occurs during the booking process, the server will return a 500 Internal Server Error status code with a message "An error occurred during booking room".*
+
+## *Submit Review*
+**Request Format:** * /submit-review*
+
+**Request Type:** *POST*
+
+**Returned Data Format**: JSON
+
+**Description:** *This endpoint is used to submit a review. The user provides their username, rating, review title, and comment.*
+
+**Example Request:** *{
+  "username": "user1",
+  "rating": 5,
+  "title": "Great room",
+  "comment": "The room was clean and spacious."
+}
+*
+
+**Example Response:**
+*{
+  "message": "Review submitted successfully"
+}
+*
+
+
+**Error Handling:**
+*If an error occurs during the review submission, the server will return a 500 Internal Server Error status code with a message "An error occurred during submitting review".*
+
+## *Get Reviews*
+**Request Format:** * /get-reviews*
 
 **Request Type:** *GET*
 
 **Returned Data Format**: JSON
 
-**Description:** *This endpoint is used to search for available rooms based on the check-in date, room type, and the number of occupants. It returns a list of rooms that match the search criteria.*
-
-**Example Request:** */api/rooms/search?checkin_date=2023-05-20&room_type=deluxe&occupants=2*
+**Description:** *This endpoint is used to retrieve all reviews from the database. It returns the reviews as JSON.*
 
 **Example Response:**
-
-```json
-[
+*[
   {
-    "room_id": 101,
-    "room_type": "deluxe",
-    "capacity": 3,
-    "price": 200,
-    "available": true
+    "username": "user1",
+    "rating": 5,
+    "title": "Great room",
+    "comment": "The room was clean and spacious."
   },
   {
-    "room_id": 102,
-    "room_type": "deluxe",
-    "capacity": 3,
-    "price": 220,
-    "available": true
+    "username": "user2",
+    "rating": 4,
+    "title": "Good service",
+    "comment": "The staff were friendly and helpful."
   }
 ]
-```
 
-**Error Handling:**
-*If no rooms match the search criteria, the server will return a 404 Not Found status code and a message indicating that no rooms are available.*
-
-## *Post Review*
-**Request Format:** */api/reviews*
-
-**Request Type:** *POST*
-
-**Returned Data Format**: Plain Text
-
-**Description:** *This endpoint allows authenticated users to post a review for a hotel room they've stayed in. The user provides their token, the room id, and their review, and the endpoint posts the review if the token is valid.*
-
-**Example Request:** *{
-  "token": "token1234abcd",
-  "room_id": 101,
-  "review": "Great room, very clean and spacious."
-}
 *
 
-**Example Response:**
-Review posted successfully.
-
 
 **Error Handling:**
-*If the token provided is invalid or expired, the server will return a 401 Unauthorized status code and a message indicating the error. If the room id provided does not exist, the server will return a 404 Not Found status code and a message indicating the error.*
+*If an error occurs during getting reviews, the server will return a 500 Internal Server Error status code with a message "An error occurred during getting reviews".*

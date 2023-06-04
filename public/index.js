@@ -296,7 +296,7 @@
         getAndDisplayReviews();
       })
       .catch(error => {
-        showError("Error during review submission: " + error.message);
+        handleError("Error during review submission: " + error.message);
       });
     id("reviewer-name").value = "";
     id("comment-text").value = "";
@@ -318,7 +318,7 @@
         displayReviews(data);
       })
       .catch(error => {
-        showError("Error during fetching reviews: " + error.message);
+        handleError("Error during fetching reviews: " + error.message);
       });
   }
 
@@ -375,7 +375,7 @@
    * Displays an error message to the user.
    * @param {string} errorMessage - The error message to display.
    */
-  function hadleError(errorMessage) {
+  function handleError(errorMessage) {
     let errorElement = id("error-message");
     errorElement.textContent = errorMessage;
     errorElement.classList.remove("hidden");
