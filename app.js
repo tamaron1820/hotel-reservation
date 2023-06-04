@@ -149,11 +149,9 @@ async function checkDBConnection() {
   console.log('DB connection successful');
 }
 
-// テーブルの存在を確認
 async function checkTableExists() {
   const db = await getDBConnection();
   const rows = await db.all('SELECT * FROM roomtypes ');
-  console.log(rows); // テーブルの一覧が表示されます
 }
 
 (async function() {

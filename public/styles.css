@@ -4,7 +4,7 @@ body {
   background-attachment: fixed;
 }
 
-#main-menu, #dining-menu, #contact-menu {
+#main-menu, #dining-menu, #contact-menu, #confirmation{
   width: auto;
   height: 850px;
   margin-bottom: 20px;
@@ -306,7 +306,7 @@ input[type="submit"]:hover {
 
 #review-menu {
   width: 60%;
-  height: 750px;
+  height: 850px;
   margin-bottom: 20px;
   margin-left: auto;
   margin-right: auto;
@@ -316,6 +316,12 @@ input[type="submit"]:hover {
   background-color: rgba(255, 255, 255, 0.9);
   padding: 30px;
   font-size: 20px;
+}
+
+#back-from-room {
+  position: absolute;
+  top: 0px; /* 上方向の位置調整 */
+  left: 10px; /* 左方向の位置調整 */
 }
 
 #review-menu form {
@@ -380,7 +386,7 @@ body {
   margin-right: auto;
   margin-top: 10px;
   background-color: rgba(255, 255, 255, 0.9);
-  background-size: contain;
+  background-size: cover;
   padding: 50px 150px;
 }
 
