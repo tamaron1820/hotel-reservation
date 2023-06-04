@@ -172,7 +172,7 @@
         id("login-form").classList.add("hidden");
       })
       .catch(error => {
-        console.error("Error:", error);
+        handleError("Error during login: " + error.message);
       });
 
     id("username").value = "";
@@ -224,7 +224,7 @@
         window.location.href = "filter.html";
       })
       .catch(error => {
-        console.error("Error:", error);
+        handleError("Error during registration: " + error.message);
       });
     id("new-username").value = "";
     id("new-password").value = "";
@@ -259,7 +259,7 @@
         id("check-out").classList.add("hidden");
       })
       .catch(error => {
-        console.error("Error:", error);
+        handleError("Error during booking: " + error.message);
       });
     id("checkout-username").value = "";
     id("address").value = "";
@@ -296,7 +296,7 @@
         getAndDisplayReviews();
       })
       .catch(error => {
-        console.error("Error:", error);
+        showError("Error during review submission: " + error.message);
       });
     id("reviewer-name").value = "";
     id("comment-text").value = "";
@@ -318,7 +318,7 @@
         displayReviews(data);
       })
       .catch(error => {
-        console.error("Error:", error);
+        showError("Error during fetching reviews: " + error.message);
       });
   }
 
@@ -360,6 +360,7 @@
     }
     return starRating;
   }
+
   /**
    * Returns the element with the specified ID attribute.
    *
@@ -368,5 +369,15 @@
    */
   function id(id) {
     return document.getElementById(id);
+  }
+
+  /**
+   * Displays an error message to the user.
+   * @param {string} errorMessage - The error message to display.
+   */
+  function hadleError(errorMessage) {
+    let errorElement = id("error-message");
+    errorElement.textContent = errorMessage;
+    errorElement.classList.remove("hidden");
   }
 })();

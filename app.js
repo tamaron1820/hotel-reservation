@@ -15,6 +15,7 @@ const cors = require('cors');
 const app = express();
 const CORRECT_RESPONSE = 200;
 const ERROR_RESPONSE = 400;
+const SERVER_ERROR = 500;
 const PORT_NUM = 8080;
 const RANDOM_CONFIRMATION = 10;
 
@@ -45,8 +46,7 @@ app.post('/login', async (req, res) => {
     }
     res.status(CORRECT_RESPONSE).send();
   } catch (err) {
-    console.error(err);
-    res.status(ERROR_RESPONSE).send("Login failed");
+    res.status(SERVER_ERROR).send("An error occurred during login");
   }
 });
 
@@ -73,7 +73,6 @@ app.post('/register', async (req, res) => {
       [user.username, user.password],
       function(err) {
         if (err) {
-          console.error(err.message);
           res.status(ERROR_RESPONSE).send("Registration failed");
         } else {
           res.status(CORRECT_RESPONSE).send();
@@ -81,8 +80,7 @@ app.post('/register', async (req, res) => {
       }
     );
   } catch (err) {
-    console.error(err);
-    res.status(ERROR_RESPONSE).send("Registration failed");
+    res.status(SERVER_ERROR).send("An error occurred during registration");
   }
 });
 
@@ -114,8 +112,7 @@ app.post('/book-room', async (req, res) => {
     );
     res.status(CORRECT_RESPONSE).json({message: "Room booked successfully"});
   } catch (err) {
-    console.error(err);
-    res.status(ERROR_RESPONSE).send("Failed to book room");
+    res.status(SERVER_ERROR).send("An error occurred during booking room");
   }
 });
 
@@ -135,8 +132,7 @@ app.post('/submit-review', async (req, res) => {
 
     res.status(CORRECT_RESPONSE).json({message: "Review submitted successfully"});
   } catch (err) {
-    console.error(err);
-    res.status(ERROR_RESPONSE).send("Failed to submit review");
+    res.status(SERVER_ERROR).send("An error occurred during submitting review");
   }
 });
 
@@ -150,8 +146,7 @@ app.get('/get-reviews', async (req, res) => {
     const reviews = await db.all('SELECT * FROM reviews ORDER BY id DESC');
     res.status(CORRECT_RESPONSE).json(reviews);
   } catch (err) {
-    console.error(err);
-    res.status(ERROR_RESPONSE).send("Failed to get reviews");
+    res.status(SERVER_ERROR).send("An error occurred during getting reviews");
   }
 });
 
