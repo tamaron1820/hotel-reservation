@@ -240,8 +240,7 @@
     event.preventDefault();
     let username = id("checkout-username").value;
     let roomtype = document.querySelector("select[name='dropdown']").value;
-    let booking = { username: username, roomtype: roomtype };
-    console.log(booking);
+    let booking = {username: username, roomtype: roomtype};
     fetch('/book-room', {
       method: 'POST',
       headers: {
@@ -250,17 +249,17 @@
       body: JSON.stringify(booking)
     })
     .then(response => {
-      if (!response.ok) {
-        throw new Error("Booking failed");
-      }
-      return response.json();
+    if (!response.ok) {
+      throw new Error("Booking failed");
+    }
+    return response.json();
     })
     .then(() => {
-      id("confirmation").classList.remove("hidden");
-      id("check-out").classList.add("hidden");
+    id("confirmation").classList.remove("hidden");
+    id("check-out").classList.add("hidden");
     })
     .catch(error => {
-      console.error("Error:", error);
+    console.error("Error:", error);
     });
     id("checkout-username").value = "";
     id("address").value = "";
@@ -279,7 +278,7 @@
     let title = id("reviewer-name").value;
     let comment = id("comment-text").value;
     let username = localStorage.getItem('username');
-    let review = { username: username, rating: rating, title: title, comment: comment };
+    let review = {username: username, rating: rating, title: title, comment: comment};
     fetch('/submit-review', {
       method: 'POST',
       headers: {
@@ -287,18 +286,18 @@
       },
       body: JSON.stringify(review)
     })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error("Review submission failed");
-        }
-        return response.json();
-      })
-      .then(data => {
-        getAndDisplayReviews();
-      })
-      .catch(error => {
-        console.error("Error:", error);
-      });
+    .then(response => {
+    if (!response.ok) {
+      throw new Error("Review submission failed");
+    }
+    return response.json();
+    })
+    .then(() => {
+    getAndDisplayReviews();
+    })
+    .catch(error => {
+    console.error("Error:", error);
+    });
     id("reviewer-name").value = "";
     id("comment-text").value = "";
     document.querySelector('input[name="rate"]:checked').checked = false;

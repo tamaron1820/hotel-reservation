@@ -38,12 +38,11 @@ app.post('/login', async (req, res) => {
     const existingUser = await db.get(
       'SELECT * FROM users WHERE username = ? AND password = ?',
      [user.username, user.password]
-     );
+    );
     if (!existingUser) {
       res.status(ERROR_RESPONSE).send("Invalid username or password");
       return;
     }
-
     res.status(CORRECT_RESPONSE).send();
   } catch (err) {
     console.error(err);
@@ -64,12 +63,14 @@ app.post('/register', async (req, res) => {
     const existingUser = await db.get(
       'SELECT * FROM users WHERE username = ?',
        [user.username]
-       );
+      );
     if (existingUser) {
       res.status(ERROR_RESPONSE).send("Username already exists");
       return;
     }
-    db.run('INSERT INTO users (username, password) VALUES (?, ?)', [user.username, user.password], function(err) {
+    db.run(
+      'INSERT INTO users (username, password) VALUES (?, ?)',
+      [user.username, user.password], function(err) {
       if (err) {
         console.error(err.message);
         res.status(ERROR_RESPONSE).send("Registration failed");
@@ -98,7 +99,7 @@ app.post('/book-room', async (req, res) => {
     const room = await db.get(
       'SELECT * FROM roomtypes WHERE roomtype = ?',
        [roomType]
-       );
+      );
     if (room.number <= 0) {
       res.status(ERROR_RESPONSE).send("No room available");
       return;
@@ -107,7 +108,7 @@ app.post('/book-room', async (req, res) => {
     await db.run(
       'INSERT INTO bookings (username, roomtype, date, confirmation_number) VALUES (?, ?, CURRENT_DATE, ?)',
       [username, roomType, confirmationNumber]
-      );
+    );
     res.status(CORRECT_RESPONSE).json({message: "Room booked successfully"});
   } catch (err) {
     console.error(err);
