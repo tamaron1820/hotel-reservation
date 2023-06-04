@@ -161,7 +161,4 @@ async function checkTableExists() {
 
 app.use(express.static("public"));
 const PORT = process.env.PORT || PORT_NUM;
-const server = app.listen(PORT, 'localhost');
-server.on('listening', function() {
-  console.log('Express server started on port %s at %s', server.address().port, server.address().address);
-});
+app.listen(PORT);
