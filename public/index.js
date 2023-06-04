@@ -24,8 +24,6 @@
     registerForm.addEventListener("submit", handleRegistrationForm);
     let bookBtn = id("book-btn");
     bookBtn.addEventListener("click", bookRoom);
-    //let username = getUsername();
-    //displayBookingHistory(username);
     let roomPhoto = id("rooms-photo");
     roomPhoto.addEventListener('click',showRoom);
     let diningPhoto = id("dining-photo");
