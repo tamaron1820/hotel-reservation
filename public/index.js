@@ -294,6 +294,13 @@
       .catch(error => {
         handleError("Error during review submission: " + error.message);
       });
+    resetReviewForm();
+  }
+
+  /**
+   * Resets the review form by clearing the input fields and unchecking the rating.
+   */
+  function resetReviewForm() {
     id("reviewer-name").value = "";
     id("comment-text").value = "";
     document.querySelector('input[name="rate"]:checked').checked = false;
