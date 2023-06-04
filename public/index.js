@@ -240,10 +240,7 @@
     event.preventDefault();
     let username = id("checkout-username").value;
     let roomtype = document.querySelector("select[name='dropdown']").value;
-    let booking = {
-      username: username,
-      roomtype: roomtype
-    };
+    let booking = { username: username, roomtype: roomtype };
     console.log(booking);
     fetch('/book-room', {
       method: 'POST',
@@ -258,7 +255,7 @@
       }
       return response.json();
     })
-    .then(data => {
+    .then(() => {
       id("confirmation").classList.remove("hidden");
       id("check-out").classList.add("hidden");
     })
@@ -278,19 +275,11 @@
    */
   function submitReview(event) {
     event.preventDefault();
-
     let rating = document.querySelector('input[name="rate"]:checked').value;
     let title = id("reviewer-name").value;
     let comment = id("comment-text").value;
     let username = localStorage.getItem('username');
-
-    let review = {
-      username: username,
-      rating: rating,
-      title: title,
-      comment: comment
-    };
-
+    let review = { username: username, rating: rating, title: title, comment: comment };
     fetch('/submit-review', {
       method: 'POST',
       headers: {
@@ -310,7 +299,6 @@
       .catch(error => {
         console.error("Error:", error);
       });
-
     id("reviewer-name").value = "";
     id("comment-text").value = "";
     document.querySelector('input[name="rate"]:checked').checked = false;
