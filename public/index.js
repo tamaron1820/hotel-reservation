@@ -152,17 +152,13 @@
     let username = id("username").value;
     let password = id("password").value;
 
-    let user = {
-      username: username,
-      password: password
-    };
+    let formData = new FormData();
+    formData.append('username', username);
+    formData.append('password', password);
 
     fetch('/login', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(user)
+      body: formData
     })
       .then(response => {
         if (!response.ok) {
@@ -240,13 +236,12 @@
     event.preventDefault();
     let username = id("checkout-username").value;
     let roomtype = document.querySelector("select[name='dropdown']").value;
-    let booking = {username: username, roomtype: roomtype};
+    let formData = new FormData();
+    formData.append('username', username);
+    formData.append('roomtype', roomtype);
     fetch('/book-room', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(booking)
+      body: formData
     })
       .then(response => {
         if (!response.ok) {
@@ -278,13 +273,15 @@
     let title = id("reviewer-name").value;
     let comment = id("comment-text").value;
     let username = localStorage.getItem('username');
-    let review = {username: username, rating: rating, title: title, comment: comment};
+    let formData = new FormData();
+    formData.append('username', username);
+    formData.append('rating', rating);
+    formData.append('title', title);
+    formData.append('comment', comment);
+
     fetch('/submit-review', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(review)
+      body: formData
     })
       .then(response => {
         if (!response.ok) {
