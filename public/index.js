@@ -55,70 +55,115 @@
     getAndDisplayReviews();
   }
 
+  /**
+   * Displays the room menu.
+   */
   function showRoom() {
     id("main-menu").classList.add("hidden");
     id("room-menu").classList.remove("hidden");
   }
 
+  /**
+   * Displays the dining menu.
+   */
   function showDining() {
     id("main-menu").classList.add("hidden");
     id("dining-menu").classList.remove("hidden");
   }
 
+  /**
+   * Displays the contact menu.
+   */
   function showContact() {
     id("main-menu").classList.add("hidden");
     id("contact-menu").classList.remove("hidden");
   }
 
+  /**
+   * Displays the check-out page.
+   */
   function showBooking() {
     id("main-menu").classList.add("hidden");
     id("check-out").classList.remove("hidden");
   }
 
+  /**
+   * Returns to the main menu from the room menu.
+   */
   function backRoom() {
     id("main-menu").classList.remove("hidden");
     id("room-menu").classList.add("hidden");
   }
 
+  /**
+   * Returns to the main menu from the dining menu.
+   */
   function backDining() {
     id("main-menu").classList.remove("hidden");
     id("dining-menu").classList.add("hidden");
   }
 
+  /**
+   * Returns to the main menu from the contact menu.
+   */
   function backContact() {
     id("main-menu").classList.remove("hidden");
     id("contact-menu").classList.add("hidden");
   }
 
+  /**
+   * Returns to the main menu from the check-out page.
+   */
   function backCheckout() {
     id("main-menu").classList.remove("hidden");
     id("check-out").classList.add("hidden");
   }
 
+  /**
+   * Returns to the main menu from the confirmation page.
+   */
   function backConfirmation() {
     id("main-menu").classList.remove("hidden");
     id("confirmation").classList.add("hidden");
   }
 
+  /**
+   * Displays the filter view.
+   */
   function changeFilterView() {
     id("main-menu").classList.add("hidden");
     id("choose-stay").classList.remove("hidden");
   }
 
+  /**
+   * Returns to the main menu from the filter view.
+   */
   function backFilter() {
     id("main-menu").classList.remove("hidden");
     id("choose-stay").classList.add("hidden");
   }
 
+  /**
+   * Displays the review view.
+   */
   function changeReviewView() {
     id("main-menu").classList.add("hidden");
     id("review-menu").classList.remove("hidden")
   }
 
+  /**
+   * Returns to the main menu from the review view.
+   */
   function backReview() {
     id("main-menu").classList.remove("hidden");
     id("review-menu").classList.add("hidden");
   }
+
+  /**
+   * Handles the login process.
+   *
+   * @param {Event} event - The submit event.
+   */
   function login(event) {
     event.preventDefault();
 
@@ -152,18 +197,30 @@
     id("password").value = "";
   }
 
+  /**
+   * Handles the registration link click event.
+   *
+   * @param {Event} event - The click event.
+   */
   function handleRegisterLink(event) {
     event.preventDefault();
     id("register").classList.remove("hidden");
     id("login-form").classList.add("hidden");
   }
 
+  /**
+   * Returns to the login-form from the register page.
+   */
   function handleBackFromRegister(event) {
     id("login-form").classList.remove("hidden");
     id("register").classList.add("hidden");
   }
 
-
+  /**
+   * Handles the registration form submission.
+   *
+   * @param {Event} event - The submit event.
+   */
   function handleRegistrationForm(event) {
     let username = id("new-username").value;
     let password = id("new-password").value;
@@ -197,6 +254,8 @@
 
   /**
    * Handles the room booking process.
+   *
+   * @param {Event} event - The click event.
    */
   function bookRoom(event) {
     event.preventDefault();
@@ -220,10 +279,9 @@
       if (!response.ok) {
         throw new Error("Booking failed");
       }
-      return response.json(); // parse response as JSON
+      return response.json();
     })
     .then(data => {
-      // save confirmation number to localStorage
       id("confirmation").classList.remove("hidden");
       id("check-out").classList.add("hidden");
     })
@@ -237,6 +295,11 @@
     id("phonenumber").value = "";
   }
 
+  /**
+   * Submits a review.
+   *
+   * @param {Event} event - The submit event.
+   */
   function submitReview(event) {
     event.preventDefault();
 
@@ -263,10 +326,9 @@
         if (!response.ok) {
           throw new Error("Review submission failed");
         }
-        return response.json(); // parse response as JSON
+        return response.json();
       })
       .then(data => {
-        // success - refresh reviews
         getAndDisplayReviews();
       })
       .catch(error => {
@@ -278,6 +340,9 @@
     document.querySelector('input[name="rate"]:checked').checked = false;
   }
 
+  /**
+   * Retrieves and displays the reviews.
+   */
   function getAndDisplayReviews() {
     fetch('/get-reviews')
       .then(response => {
@@ -317,40 +382,6 @@
         console.error("Error:", error);
       });
   }
-
-async function getBookingHistory(username) {
-  try {
-    const response = await fetch(`/booking-history?username=${username}`);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    } else {
-      return await response.json();
-    }
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// This function displays the booking history on the webpage
-function displayBookingHistory() {
-  let username = localStorage.getItem('username');
-  if (!username) {
-    // user is not logged in, do not display booking history
-    return;
-  }
-  getBookingHistory(username)
-    .then(bookings => {
-      let bookingList = id('booking-list');
-      bookingList.innerHTML = '';
-
-      bookings.forEach(booking => {
-        let listItem = document.createElement('li');
-        listItem.textContent = `Room Type: ${booking.roomtype}, Date: ${booking.date}, Confirmation Number: ${booking.confirmation_number}`;
-        bookingList.appendChild(listItem);
-      });
-    });
-}
-
 
   /**
    * Returns the element with the specified ID attribute.

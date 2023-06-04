@@ -1,3 +1,4 @@
+"use strict";
 const express = require('express');
 const bodyParser = require('body-parser');
 const sqlite3 = require('sqlite3');
@@ -16,6 +17,11 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(multer().none());
 
+/**
+ * Handles the login request.
+ * Validates the user credentials against the database.
+ * Returns a response with the appropriate status code and message.
+ */
 app.post('/login', async (req, res) => {
   try {
     const db = await getDBConnection();
@@ -35,20 +41,21 @@ app.post('/login', async (req, res) => {
   }
 });
 
-
+/**
+ * Handles the registration request.
+ * Checks if the username already exists in the database.
+ * Inserts a new user record if the username is unique.
+ * Returns a response with the appropriate status code and message.
+ */
 app.post('/register', async (req, res) => {
   try {
     const db = await getDBConnection();
     let user = req.body;
-
-    // ユーザー名の一意性を確認する
     const existingUser = await db.get('SELECT * FROM users WHERE username = ?', [user.username]);
     if (existingUser) {
       res.status(ERROR_RESPONSE).send("Username already exists");
       return;
     }
-
-    // 新しいユーザーを登録する
     db.run('INSERT INTO users (username, password) VALUES (?, ?)', [user.username, user.password], function(err) {
       if (err) {
         console.error(err.message);
@@ -64,6 +71,12 @@ app.post('/register', async (req, res) => {
   }
 });
 
+/**
+ * Handles the room booking request.
+ * Checks if the requested room type is available.
+ * Inserts a new booking record if a room is available.
+ * Returns a response with the appropriate status code and message.
+ */
 app.post('/book-room', async (req, res) => {
   try {
     const db = await getDBConnection();
@@ -85,12 +98,15 @@ app.post('/book-room', async (req, res) => {
   }
 });
 
+/**
+ * Handles the submission of a review.
+ * Inserts a new review record into the database.
+ * Returns a response with the appropriate status code and message.
+ */
 app.post('/submit-review', async (req, res) => {
   try {
     const db = await getDBConnection();
     let review = req.body;
-
-    // Insert the review into the reviews table
     await db.run(
       'INSERT INTO reviews (username, rating, title, comment) VALUES (?, ?, ?, ?)',
       [review.username, review.rating, review.title, review.comment]
@@ -103,13 +119,14 @@ app.post('/submit-review', async (req, res) => {
   }
 });
 
+/**
+ * Retrieves all reviews from the database.
+ * Returns a response with the appropriate status code and the reviews as JSON.
+ */
 app.get('/get-reviews', async (req, res) => {
   try {
     const db = await getDBConnection();
-
-    // Fetch all reviews from the reviews table
     const reviews = await db.all('SELECT * FROM reviews ORDER BY id DESC');
-
     res.status(CORRECT_RESPONSE).json(reviews);
   } catch (err) {
     console.error(err);
@@ -117,7 +134,10 @@ app.get('/get-reviews', async (req, res) => {
   }
 });
 
-
+/**
+ * Generates a random confirmation number for room bookings.
+ * @returns {string} - The generated confirmation number.
+ */
 function generateConfirmationNumber() {
   let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   let confirmationNumber = '';
@@ -128,8 +148,6 @@ function generateConfirmationNumber() {
 
   return confirmationNumber;
 }
-
-
 
 /**
  * Establishes a database connection to the database and returns the database object.
@@ -144,16 +162,27 @@ async function getDBConnection() {
   return db;
 }
 
+/**
+ * Checks the database connection by establishing a connection.
+ * Prints a success message to the console if the connection is successful.
+ */
 async function checkDBConnection() {
   const db = await getDBConnection();
   console.log('DB connection successful');
 }
 
+/**
+ * Checks if the "roomtypes" table exists in the database.
+ * Executes a query to retrieve all rows from the table.
+ */
 async function checkTableExists() {
   const db = await getDBConnection();
   const rows = await db.all('SELECT * FROM roomtypes ');
 }
 
+/**
+ * Immediately-invoked async function to check the database connection and table existence on server startup.
+ */
 (async function() {
   await checkDBConnection();
   await checkTableExists();
