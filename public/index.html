@@ -19,37 +19,256 @@
 </head>
 
 <body>
-  <div>
-    <section id="main-menu">
+  <form id="login-form">
+    <h2>LOG IN</h2>
+    <section class="entry">
+    <label for="username">Username</label>
+    <input id="username" class="entrybox" type="text">
+      </section>
+    <div class="entry">
+    <label for="password">Password</label>
+    <input id="password" class="entry-box" type="text">
+      </div>
+    <button id="login-btn" type="submit">LOG IN</button>
+      <button id="register-link">Create New Account</button>
+    </form>
+    <form id="register" class="hidden">
+      <h2>REGISTER</h2>
+      <section class="entry">
+        <label for="new-username">New Username</label>
+        <input id="new-username" class="entrybox" type="text">
+      </section>
+      <div class="entry">
+        <label for="new-password">New Password</label>
+        <input id="new-password" class="entry-box" type="password">
+      </div>
+      <button id="register-btn" type="submit">REGISTER</button>
+    </form>
+    <section id="main-menu" class="hidden">
       <h2 id="main-menu-text">MAIN MENU</h2>
       <section id="contents">
         <article class="rooms">
           <div class="text-container">
-            <a href="roomList.html"><img src="img/rooms.png" alt="room image"></a>
+            <img id="rooms-photo" src="img/rooms.png" alt="room image" >
             <p class="room-text">ROOMS</p>
           </div>
         </article>
         <article class="dinings">
           <div class="text-container">
-            <a href="dining.html"><img src="img/dining.png" alt="dining image"></a>
+            <img src="img/dining.png" alt="dining image" id="dining-photo">
             <p class="room-text">DININGS</p>
           </div>
         </article>
         <article class="bookings">
           <div class="text-container">
-            <a href="login.html"><img src="img/booking.png" alt="booking image"></a>
+            <img src="img/booking.png" alt="booking image" id="booking-photo">
             <p class="room-text">MAKE BOOKINGS</p>
           </div>
         </article>
         <article class="contacts">
           <div class="text-container">
-            <a href="contacts.html"><img src="img/contact.png" alt="contact image"></a>
+            <img src="img/contact.png" alt="contact image" id="contact-photo">
             <p class="room-text">CONTACTS</p>
           </div>
         </article>
       </section>
     </section>
-  </div>
+  <section id="room-menu" class="hidden">
+    <h2>Rooms</h2>
+    <div class="room-list-wrapper">
+        <div class="room-content">
+          <p id="twin-text">Twin Room</p>
+          <div class="img-text-content">
+            <img id="twin-img" src="img/twin.png" alt="twin image">
+            <div class="dark-cover">
+              <p id="twin-des" class="description">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean et turpis
+                pellentesque, lobortis elit quis, pharetra felis. Maecenas volutpat tortor
+                a diam blandit pulvinar.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="room-content">
+          <p id="double-text">Double Room</p>
+          <div class="img-text-content">
+            <img id="double-img" src="img/double.png" alt="double image">
+            <div class="dark-cover">
+              <p id="double-des" class="description">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean et turpis
+                pellentesque, lobortis elit quis, pharetra felis. Maecenas volutpat tortor
+                a diam blandit pulvinar.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="room-content">
+          <p id="single-text">Single Room</p>
+          <div class="img-text-content">
+            <img id="single-img" src="img/single.png" alt="single image">
+            <div class="dark-cover">
+              <p id="single-des" class="description">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean et turpis
+                pellentesque, lobortis elit quis, pharetra felis. Maecenas volutpat tortor
+                a diam blandit pulvinar.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="room-content">
+          <p id="triple-text">Triple Room</p>
+          <div class="img-text-content">
+            <img id="triple-img" src="img/triple.jpg" alt="single image">
+            <div class="dark-cover">
+              <p id="tryple-des" class="description">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean et turpis
+                pellentesque, lobortis elit quis, pharetra felis. Maecenas volutpat tortor
+                a diam blandit pulvinar.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="room-content">
+          <p id="family-text">Family Room</p>
+          <div class="img-text-content">
+            <img id="family-img" src="img/family.jpg" alt="family image">
+            <div class="dark-cover">
+              <p id="family-des" class="description">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean et turpis
+                pellentesque, lobortis elit quis, pharetra felis. Maecenas volutpat tortor
+                a diam blandit pulvinar.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="room-content">
+          <p id="studio-text">Studio Room</p>
+          <div class="img-text-content">
+            <img id="studio-img" src="img/studio.jpg" alt="studio image">
+            <div class="dark-cover">
+              <p id="studio-des" class="description">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean et turpis
+                pellentesque, lobortis elit quis, pharetra felis. Maecenas volutpat tortor
+                a diam blandit pulvinar.
+              </p>
+            </div>
+          </div>
+        </div>
+    </div>
+    <a id="back-from-room" class="dli-arrow-link">
+      <span class="dli-arrow-left"></span>
+      <span class="dli-arrow-text">Back to Main Menu</span>
+    </a>
+  </section>
+  <section id="choose-stay" class="hidden">
+    <h2>CHOOSE YOUR STAY</h2>
+    <div class="entry">
+      <label for="checkin">Check-in</label>
+      <input id="checkin" class="entrybox" type="text">
+    </div>
+    <div class="entry">
+      <label for="nights">Nights</label>
+      <input id="nights" class="entrybox" type="text">
+    </div>
+    <div class="entry">
+      <label for="rooms">Rooms</label>
+      <input id="rooms" class="entrybox" type="text">
+    </div>
+    <div class="entry">
+      <label for="number">Number of guests</label>
+      <input id="number" class="entrybox" type="text">
+    </div>
+    <div class="entry">
+      <label for="preferences">Room Preferences</label>
+      <select id="preferences">
+        <option value="1">Smoking</option>
+        <option value="2" selected>Non-smoking</option>
+      </select>
+    </div>
+    <button id="search-btn">SEARCH ROOMS</button>
+    <a href="index.html" class="dli-arrow-link">
+      <span class="dli-arrow-left"></span>
+      <span class="dli-arrow-text">Back to Main Menu</span>
+    </a>
+  </section>
+    <section id="dining-menu" class="hidden">
+      <h2>MAIN MENU</h2>
+      <div class="contact-page-wrapper">
+        <div class="dining-page">
+          <p id="contacts-text">DININGS</p>
+          <p id="dining-des">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean et turpis
+            pellentesque, lobortis elit quis, pharetra felis. Maecenas volutpat tortor
+            a diam blandit pulvinar. Aenean sit amet libero nibh. In leo purus, ornare
+            ut nibh vel, varius eleifend quam. Morbi fringilla, sem in dignissim
+            pellentesque, orci dui convallis ex, id venenatis metus arcu non enim.
+          </p>
+          <img id="meal-img" src="img/meal.png" alt="meal image">
+          <button id="back-from-dining" ></button>
+          <p id="text-from-dining">Back to Main</p>
+        </div>
+      </div>
+    </section>
+    <section id="contact-menu" class="hidden">
+      <h2>MAIN MENU</h2>
+      <div class="contact-page-wrapper">
+        <article class="contact-page">
+          <p id="contacts-text">CONTACTS</p>
+          <div id="contact-info">
+            <p>TEL: <strong><span id="number"> 206-123-4567</span></strong></p>
+            <p>E-MAIL: <strong><span class="mail-address"> imdying@gmail.com</span></strong></p>
+            <p>ADDRESS: <strong><span class="mail-address"> 98000 Idontknow whatimdoing Seattle,
+              WA</span></strong></p>
+            <a href="review.html">WRITE A REVIEW HERE</a>
+          </div>
+          <button id="back-from-contact"></button>
+          <p id="text-from-dining">Back to Main</p>
+        </article>
+      </div>
+    </section>
+    <section id="confirmation" class="hidden">
+      <h2>Your booking has confirmed!</h2>
+      <p>Thank you for choosing us.</p>
+      <a id="back-from-confiramtion" class="dli-arrow-link">
+        <span class="dli-arrow-left"></span>
+        <span class="dli-arrow-text">Back to Main Menu</span>
+      </a>
+    </section>
+    <section id="check-out" class="hidden">
+      <h2>Check out</h2>
+      <div class="entry">
+        <label for="username">Username</label>
+        <input id="checkout-username" class="entrybox" type="text">
+      </div>
+      <div class="entry">
+        <label for="address">Billing Address</label>
+        <input id="address" class="entrybox" type="text">
+      </div>
+      <div class="entry">
+        <label for="email">E-mail</label>
+        <input id="email" class="entrybox" type="text">
+      </div>
+      <div class="entry">
+        <label for="phonenumber">Phone Number</label>
+        <input id="phonenumber" class="entrybox" type="text">
+      </div>
+      <div class="entry">
+        <p>Room Type</p>
+        <select name="dropdown">
+          <option value="Single Room">Single Room</option>
+          <option value="Double Room">Double Room</option>
+          <option value="Triple Room">Triple Room</option>
+          <option value="Twin Room">Twin Room</option>
+          <option value="Family Room">Family Room</option>
+          <option value="Studio Room">Studio Room</option>
+        </select>
+      </div>
+      <button id="book-btn">Book</button>
+      <a id="back-from-checkout" class="dli-arrow-link">
+        <span class="dli-arrow-left"></span>
+        <span class="dli-arrow-text">Back to Main Menu</span>
+      </a>
+    </section>
 </body>
 
 </html>

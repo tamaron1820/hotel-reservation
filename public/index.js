@@ -16,24 +16,86 @@
    * Initializes the application by adding a 'submit' event listener to the review form.
    */
   function init() {
-    //let registerlink = document.getElementById("register-link");
-    //let loginForm = document.getElementById("login-form");
-    //loginForm.addEventListener("submit", login);
-    //registerlink.addEventListener("click", handleRegisterLink);
-    //let registerForm = document.getElementById("register");
-    //registerForm.addEventListener("submit", handleRegistrationForm);
-    let bookBtn = document.getElementById("book-btn");
+    let registerlink = id("register-link");
+    let loginForm = id("login-form");
+    loginForm.addEventListener("submit", login);
+    registerlink.addEventListener("click", handleRegisterLink);
+    let registerForm = id("register");
+    registerForm.addEventListener("submit", handleRegistrationForm);
+    let bookBtn = id("book-btn");
     bookBtn.addEventListener("click", bookRoom);
     //let username = getUsername();
     //displayBookingHistory(username);
+    let roomPhoto = id("rooms-photo");
+    roomPhoto.addEventListener('click',showRoom);
+    let diningPhoto = id("dining-photo");
+    diningPhoto.addEventListener('click',showDining);
+    let contactPhoto = id("contact-photo");
+    contactPhoto.addEventListener('click',showContact);
+    let bookingPhoto = id("booking-photo");
+    bookingPhoto.addEventListener('click',showBooking);
+    let backFromRoom = id("back-from-room");
+    backFromRoom.addEventListener('click', backRoom);
+    let backFromContact = id("back-from-contact");
+    backFromContact.addEventListener('click', backContact);
+    let backFromCheckout= id("back-from-checkout");
+    backFromCheckout.addEventListener('click', backCheckout);
+    let backFromDining = id("back-from-dining");
+    backFromDining.addEventListener('click', backDining);
+    let backFromConfirmation= id("back-from-confiramtion");
+    backFromConfirmation.addEventListener('click', backConfirmation);
   }
 
+  function showRoom() {
+    id("main-menu").classList.add("hidden");
+    id("room-menu").classList.remove("hidden");
+  }
+
+  function showDining() {
+    id("main-menu").classList.add("hidden");
+    id("dining-menu").classList.remove("hidden");
+  }
+
+  function showContact() {
+    id("main-menu").classList.add("hidden");
+    id("contact-menu").classList.remove("hidden");
+  }
+
+  function showBooking() {
+    id("main-menu").classList.add("hidden");
+    id("check-out").classList.remove("hidden");
+  }
+
+  function backRoom() {
+    id("main-menu").classList.remove("hidden");
+    id("room-menu").classList.add("hidden");
+  }
+
+  function backDining() {
+    id("main-menu").classList.remove("hidden");
+    id("dining-menu").classList.add("hidden");
+  }
+
+  function backContact() {
+    id("main-menu").classList.remove("hidden");
+    id("contact-menu").classList.add("hidden");
+  }
+
+  function backCheckout() {
+    id("main-menu").classList.remove("hidden");
+    id("check-out").classList.add("hidden");
+  }
+
+  function backConfirmation() {
+    id("main-menu").classList.remove("hidden");
+    id("confirmation").classList.add("hidden");
+  }
 
   function login(event) {
     event.preventDefault();
 
-    let username = document.getElementById("username").value;
-    let password = document.getElementById("password").value;
+    let username = id("username").value;
+    let password = id("password").value;
 
     let user = {
       username: username,
@@ -51,15 +113,15 @@
         if (!response.ok) {
           throw new Error("Login failed");
         }
-        localStorage.setItem('username', data.username);
-        window.location.href = "bookinghistory.html";
+        id("main-menu").classList.remove("hidden");
+        id("login-form").classList.add("hidden");
       })
       .catch(error => {
         console.error("Error:", error);
       });
 
-    document.getElementById("username").value = "";
-    document.getElementById("password").value = "";
+    id("username").value = "";
+    id("password").value = "";
   }
 
   function handleRegisterLink(event) {
@@ -75,8 +137,8 @@
 
 
   function handleRegistrationForm(event) {
-    let username = document.getElementById("new-username").value;
-    let password = document.getElementById("new-password").value;
+    let username = id("new-username").value;
+    let password = id("new-password").value;
 
     let user = {
       username: username,
@@ -100,8 +162,8 @@
         console.error("Error:", error);
       });
       console.log("success")
-    document.getElementById("new-username").value="";
-    document.getElementById("new-password").value="";
+    id("new-username").value="";
+    id("new-password").value="";
     handleBackFromRegister();
   }
 
@@ -111,14 +173,14 @@
   function bookRoom(event) {
     event.preventDefault();
 
-    let username = document.getElementById("username").value;
+    let username = id("checkout-username").value;
     let roomtype = document.querySelector("select[name='dropdown']").value;
 
     let booking = {
       username: username,
       roomtype: roomtype
     };
-
+    console.log(booking);
     fetch('/book-room', {
       method: 'POST',
       headers: {
@@ -134,17 +196,17 @@
     })
     .then(data => {
       // save confirmation number to localStorage
-      localStorage.setItem('confirmationNumber', data.confirmationNumber);
-      window.location.href = "confirmation.html";
+      id("confirmation").classList.remove("hidden");
+      id("check-out").classList.add("hidden");
     })
     .catch(error => {
       console.error("Error:", error);
     });
 
-    document.getElementById("username").value = "";
-    document.getElementById("address").value = "";
-    document.getElementById("email").value = "";
-    document.getElementById("phonenumber").value = "";
+    id("checkout-username").value = "";
+    id("address").value = "";
+    id("email").value = "";
+    id("phonenumber").value = "";
   }
 
 
@@ -170,7 +232,7 @@ function displayBookingHistory() {
   }
   getBookingHistory(username)
     .then(bookings => {
-      let bookingList = document.getElementById('booking-list');
+      let bookingList = id('booking-list');
       bookingList.innerHTML = '';
 
       bookings.forEach(booking => {

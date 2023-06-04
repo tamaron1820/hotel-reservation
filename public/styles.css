@@ -4,7 +4,7 @@ body {
   background-attachment: fixed;
 }
 
-#main-menu {
+#main-menu, #dining-menu, #contact-menu {
   width: auto;
   height: 850px;
   margin-bottom: 20px;
@@ -36,7 +36,7 @@ body {
   flex-wrap: wrap;
 }
 
-#main-menu h2 {
+#main-menu h2, #dining-menu h2{
   font-size: 35px;
   text-align: center;
 }
@@ -47,7 +47,7 @@ body {
   flex-wrap: wrap;
 }
 
-#main-menu p {
+#main-menu p, #dining-menu p{
   font-size: 20px;
 }
 
@@ -139,7 +139,7 @@ body {
   z-index: 1;
 }
 
-#back-from-contact {
+#back-from-contact, #back-from-dining {
   position: absolute;
   bottom: 50px;
   left: 40px;
@@ -343,4 +343,341 @@ input[type="submit"]:hover {
 #review-menu > div {
   display: flex;
   align-items: center;
+}
+
+body {
+  background-image: url("img/lobby.png");
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+#room-menu {
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  background-color: rgba(255, 255, 255, 0.9);
+  background-size: contain;
+  padding: 50px 150px;
+}
+
+#room-menu h2 {
+  font-size: 35px;
+  text-align: center;
+  width: 100%;
+}
+
+.room-list-wrapper {
+  width: auto;
+  height: 600px;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  display: flex;
+  align-items:flex-start;
+  position: relative;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.room-list-wrapper .room-content {
+  position: relative;
+  height: 250px;
+  width: 300px;
+  max-width: 100%;
+  margin: 14px 14px 50px 14px
+}
+
+.room-content .img-text-content{
+  position: absolute;
+  left: 0;
+  right:0;
+  bottom: -40px;
+  height: 240px;
+  max-width: 100%;
+}
+
+.img-text-content p{
+ position: relative;
+ font-size: 12px;
+ right: auto;
+ left: auto;
+ margin: 5px;
+}
+
+.img-text-content img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  display: flex;
+}
+
+.img-text-content .dark-cover {
+  align-items: center; /* テキストの中央揃え */
+  background: rgba(0, 0, 0, .5); /* マスクの色(黒の50%) */
+  bottom: 0;
+  color: #fff; /* テキストの色 */
+  font-size: 14px;
+  display: flex; /* テキストの中央揃え */
+  height: auto;
+  justify-content: center; /* テキストの中央揃え */
+  left: 0;
+  opacity: 0; /* 最初は透明(非表示) */
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: opacity .6s ease; /* ゆっくりopacityのみへ変化させる */
+  width: 100%;
+}
+
+.dark-cover:hover {
+  opacity:1
+}
+
+.dark-cover p {
+  width: 60%
+}
+
+.dli-arrow-link {
+  margin-top: 60px;
+  display: inline-block;
+  vertical-align: middle;
+  color: #333;
+  text-decoration: none;
+}
+
+.dli-arrow-text {
+  display: inline-block;
+  margin-left: 0.5em;
+  vertical-align: middle;
+}
+
+.dli-arrow-left {
+  display: inline-block;
+  vertical-align: middle;
+  color: #333;
+  line-height: 1;
+  position: relative;
+  width: 1em;
+  height: 0.1em;
+  background: currentcolor;
+}
+
+.dli-arrow-left:before {
+  content: '';
+  width: 0.65em;
+  height: 0.65em;
+  border: 0.1em solid currentcolor;
+  border-right: 0;
+  border-bottom: 0;
+  transform: rotate(-45deg);
+  transform-origin: top left;
+  position: absolute;
+  top: 50%;
+  left: -0.05em;
+  box-sizing: border-box;
+}
+
+body {
+  background-image: url("img/room-background.png");
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+#login-form, #choose-stay {
+  background-color: rgba(255, 255, 255, 0.75);
+  padding: 30px;
+  width: 60%;
+  height: 400px;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 200px;
+}
+
+#back-from-login, #back-from-serch ,#register-from-login{
+  width: 20px;
+  height: 20px;
+  border-top: 2px solid white;
+  border-right: 2px solid white;
+  transform: rotate(225deg);
+  background-color: transparent;
+  display: inline-block;
+}
+
+.text-from-login, #text-from-serch {
+  display: inline-block;
+}
+
+h2 {
+  text-align: center;
+  font-size: 35px;
+}
+
+#login-form .entry, #choose-stay .entry {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+
+#login-form #login-btn, #choose-stay #serch-btn {
+  border: 1px solid #000;
+  border-radius: 0;
+  background: #fff;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+}
+
+#login-form #login-btn:hover {
+  color: #fff;
+  background: #000;
+}
+
+#register {
+  background-color: rgba(255, 255, 255, 0.75);
+  padding: 30px;
+  width: 60%;
+  height: 400px;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 200px;
+}
+
+#back-from-register {
+  width: 20px;
+  height: 20px;
+  border-top: 2px solid white;
+  border-right: 2px solid white;
+  transform: rotate(225deg);
+  background-color: transparent;
+  display: inline-block;
+}
+
+#text-from-register {
+  display: inline-block;
+}
+
+#register .entry {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+
+#register #register-btn {
+  border: 1px solid #000;
+  border-radius: 0;
+  background: #fff;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+}
+
+#register #register-btn:hover {
+  color: #fff;
+  background: #000;
+}
+.hidden {
+  display: none;
+}
+
+body {
+  background-image: url("img/room-background.png");
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+#menu-view {
+  background-color: rgba(255, 255, 255, 0.75);
+  padding: 30px;
+  width: 60%;
+  height: 400px;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 150px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 35px;
+  margin: 20px;
+}
+
+#booking-btn:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+#booking-btn {
+  padding: 10px 20px;
+  background-color: rgba(255, 255, 255, 1);
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+body {
+  background-image: url("img/room-background.png");
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+#check-out {
+  background-color: rgba(255, 255, 255, 0.75);
+  padding: 30px;
+  width: 60%;
+  height: 400px;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 200px;
+}
+
+#check-out .entry .data{
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+
+.data{
+  background-color: rgba(255, 255, 255, 0.75);
+  padding: 10px;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h2 {
+  text-align: center;
+  font-size: 35px;
+}
+
+
+#book-btn {
+  border: 1px solid #000;
+  border-radius: 0;
+  background: #fff;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+}
+
+#book-btn:hover {
+  color: #fff;
+  background: #000;
+}
+
+p {
+  text-align: center;
+  font-size: 20px;
 }

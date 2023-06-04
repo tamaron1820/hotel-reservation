@@ -76,18 +76,18 @@ app.post('/book-room', async (req, res) => {
       res.status(ERROR_RESPONSE).send("User already has a booking");
       return;
     }
-
+    console.log(1);
     const room = await db.get('SELECT * FROM roomtypes WHERE roomtype = ?', [roomType]);
     if (!room) {
       res.status(ERROR_RESPONSE).send("Room type not found");
       return;
     }
-
+    console.log(1);
     if (room.number <= 0) {
       res.status(ERROR_RESPONSE).send("No room available");
       return;
     }
-
+    console.log(1);
     let confirmationNumber = generateConfirmationNumber();
     await db.run('UPDATE roomtypes SET number = number - 1 WHERE roomtype = ?', [roomType]);
     await db.run('INSERT INTO bookings (username, roomtype, date, confirmation_number) VALUES (?, ?, CURRENT_DATE, ?)',
