@@ -108,7 +108,8 @@ app.post('/book-room', async (req, res) => {
     }
     let confirmationNumber = generateConfirmationNumber();
     await db.run(
-      'INSERT INTO bookings (username, roomtype, date, confirmation_number) VALUES (?, ?, CURRENT_DATE, ?)',
+      'INSERT INTO bookings (username, roomtype, date, confirmation_number) ' +
+      'VALUES (?, ?, CURRENT_DATE, ?)',
       [username, roomType, confirmationNumber]
     );
     res.status(CORRECT_RESPONSE).json({message: "Room booked successfully"});

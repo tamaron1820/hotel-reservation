@@ -312,35 +312,54 @@
         if (!response.ok) {
           throw new Error("Failed to get reviews");
         }
-        return response.json(); // parse response as JSON
+        return response.json();
       })
       .then(data => {
-        let reviews = id('reviews');
-        reviews.innerHTML = '';
-        data.forEach(review => {
-          let reviewElement = document.createElement('div');
-          reviewElement.classList.add('review');
-          let starRating = '';
-          for (let i = 0; i < MAX_STARS; i++) {
-            if (i < review.rating) {
-              starRating += '★';
-            } else {
-              starRating += '☆';
-            }
-          }
-          reviewElement.innerHTML = `
-            <h2>${review.title}</h2>
-            <p>${starRating}</p>
-            <p>${review.comment}</p>
-          `;
-          reviews.appendChild(reviewElement);
-        });
+        displayReviews(data);
       })
       .catch(error => {
         console.error("Error:", error);
       });
   }
 
+  /**
+   * Display reviews on the page.
+   *
+   * @param {Array} data - An array of review objects.
+   */
+  function displayReviews(data) {
+    let reviews = id('reviews');
+    reviews.innerHTML = '';
+    data.forEach(review => {
+      let reviewElement = document.createElement('div');
+      reviewElement.classList.add('review');
+      let starRating = getStarRating(review.rating);
+      reviewElement.innerHTML = `
+        <h2>${review.title}</h2>
+        <p>${starRating}</p>
+        <p>${review.comment}</p>
+      `;
+      reviews.appendChild(reviewElement);
+    });
+  }
+
+  /**
+   * Get the star rating based on the given rating.
+   *
+   * @param {number} rating - The rating value.
+   * @returns {string} The star rating as a string.
+   */
+  function getStarRating(rating) {
+    let starRating = '';
+    for (let i = 0; i < MAX_STARS; i++) {
+      if (i < rating) {
+        starRating += '★';
+      } else {
+        starRating += '☆';
+      }
+    }
+    return starRating;
+  }
   /**
    * Returns the element with the specified ID attribute.
    *
