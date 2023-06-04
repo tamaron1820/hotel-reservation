@@ -248,19 +248,19 @@
       },
       body: JSON.stringify(booking)
     })
-    .then(response => {
-    if (!response.ok) {
-      throw new Error("Booking failed");
-    }
-    return response.json();
-    })
-    .then(() => {
-    id("confirmation").classList.remove("hidden");
-    id("check-out").classList.add("hidden");
-    })
-    .catch(error => {
-    console.error("Error:", error);
-    });
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Booking failed");
+        }
+        return response.json();
+      })
+      .then(() => {
+        id("confirmation").classList.remove("hidden");
+        id("check-out").classList.add("hidden");
+      })
+      .catch(error => {
+        console.error("Error:", error);
+      });
     id("checkout-username").value = "";
     id("address").value = "";
     id("email").value = "";
@@ -286,18 +286,18 @@
       },
       body: JSON.stringify(review)
     })
-    .then(response => {
-    if (!response.ok) {
-      throw new Error("Review submission failed");
-    }
-    return response.json();
-    })
-    .then(() => {
-    getAndDisplayReviews();
-    })
-    .catch(error => {
-    console.error("Error:", error);
-    });
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Review submission failed");
+        }
+        return response.json();
+      })
+      .then(() => {
+        getAndDisplayReviews();
+      })
+      .catch(error => {
+        console.error("Error:", error);
+      });
     id("reviewer-name").value = "";
     id("comment-text").value = "";
     document.querySelector('input[name="rate"]:checked').checked = false;
@@ -315,14 +315,11 @@
         return response.json(); // parse response as JSON
       })
       .then(data => {
-        // success - display reviews
         let reviews = id('reviews');
         reviews.innerHTML = '';
-
         data.forEach(review => {
           let reviewElement = document.createElement('div');
           reviewElement.classList.add('review');
-
           let starRating = '';
           for (let i = 0; i < MAX_STARS; i++) {
             if (i < review.rating) {
@@ -331,13 +328,11 @@
               starRating += '☆';
             }
           }
-
           reviewElement.innerHTML = `
             <h2>${review.title}</h2>
             <p>${starRating}</p>
             <p>${review.comment}</p>
           `;
-
           reviews.appendChild(reviewElement);
         });
       })
