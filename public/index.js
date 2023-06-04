@@ -278,7 +278,6 @@
     formData.append('rating', rating);
     formData.append('title', title);
     formData.append('comment', comment);
-
     fetch('/submit-review', {
       method: 'POST',
       body: formData
