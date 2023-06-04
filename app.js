@@ -1,6 +1,5 @@
 "use strict";
 const express = require('express');
-const bodyParser = require('body-parser');
 const sqlite3 = require('sqlite3');
 const sqlite = require('sqlite');
 const multer = require('multer');
@@ -27,7 +26,8 @@ app.post('/login', async (req, res) => {
     const db = await getDBConnection();
     let user = req.body;
 
-    const existingUser = await db.get('SELECT * FROM users WHERE username = ? AND password = ?', [user.username, user.password]);
+    const existingUser = await db.get('SELECT * FROM users WHERE username = ? AND password = ?',
+     [user.username, user.password]);
     if (!existingUser) {
       res.status(ERROR_RESPONSE).send("Invalid username or password");
       return;

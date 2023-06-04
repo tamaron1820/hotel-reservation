@@ -553,6 +553,7 @@ input[type="submit"]:hover {
   color: #fff;
   background: #000;
 }
+
 .hidden {
   display: none;
 }
@@ -654,7 +655,7 @@ p {
 #fil-button {
   right: 20px;
 }
+
 #review-button {
   right: 110px;
 }
-

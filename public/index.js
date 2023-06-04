@@ -16,42 +16,24 @@
    * Initializes the application by adding a 'submit' event listener to the review form.
    */
   function init() {
-    let registerlink = id("register-link");
-    let loginForm = id("login-form");
-    loginForm.addEventListener("submit", login);
-    registerlink.addEventListener("click", handleRegisterLink);
-    let registerForm = id("register");
-    registerForm.addEventListener("submit", handleRegistrationForm);
-    let bookBtn = id("book-btn");
-    bookBtn.addEventListener("click", bookRoom);
-    let roomPhoto = id("rooms-photo");
-    roomPhoto.addEventListener('click',showRoom);
-    let diningPhoto = id("dining-photo");
-    diningPhoto.addEventListener('click',showDining);
-    let contactPhoto = id("contact-photo");
-    contactPhoto.addEventListener('click',showContact);
-    let bookingPhoto = id("booking-photo");
-    bookingPhoto.addEventListener('click',showBooking);
-    let backFromRoom = id("back-from-room");
-    backFromRoom.addEventListener('click', backRoom);
-    let backFromContact = id("back-from-contact");
-    backFromContact.addEventListener('click', backContact);
-    let backFromCheckout= id("back-from-checkout");
-    backFromCheckout.addEventListener('click', backCheckout);
-    let backFromDining = id("back-from-dining");
-    backFromDining.addEventListener('click', backDining);
-    let backFromConfirmation= id("back-from-confiramtion");
-    backFromConfirmation.addEventListener('click', backConfirmation);
-    let changeFilter = id("fil-button");
-    changeFilter.addEventListener('click', changeFilterView);
-    let changeReview = id("review-button");
-    changeReview.addEventListener('click', changeReviewView);
-    let backFromFilter = id("back-from-search");
-    backFromFilter.addEventListener('click', backFilter);
-    let backFromReview = id("back-from-review");
-    backFromReview.addEventListener('click', backReview);
-    let reviewForm = id("review-form");
-    reviewForm.addEventListener('submit', submitReview);
+    id("login-form").addEventListener("submit", login);
+    id("register-link").addEventListener("click", handleRegisterLink);
+    id("register").addEventListener("submit", handleRegistrationForm);
+    id("book-btn").addEventListener("click", bookRoom);
+    id("rooms-photo").addEventListener('click', showRoom);
+    id("dining-photo").addEventListener('click', showDining);
+    id("contact-photo").addEventListener('click', showContact);
+    id("booking-photo").addEventListener('click', showBooking);
+    id("back-from-room").addEventListener('click', backRoom);
+    id("back-from-contact").addEventListener('click', backContact);
+    id("back-from-checkout").addEventListener('click', backCheckout);
+    id("back-from-dining").addEventListener('click', backDining);
+    id("back-from-confiramtion").addEventListener('click', backConfirmation);
+    id("fil-button").addEventListener('click', changeFilterView);
+    id("review-button").addEventListener('click', changeReviewView);
+    id("back-from-search").addEventListener('click', backFilter);
+    id("back-from-review").addEventListener('click', backReview);
+    id("review-form").addEventListener('submit', submitReview);
     getAndDisplayReviews();
   }
 
@@ -148,7 +130,7 @@
    */
   function changeReviewView() {
     id("main-menu").classList.add("hidden");
-    id("review-menu").classList.remove("hidden")
+    id("review-menu").classList.remove("hidden");
   }
 
   /**
