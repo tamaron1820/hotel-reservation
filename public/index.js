@@ -193,17 +193,15 @@
   /**
    * Returns to the login-form from the register page.
    */
-  function handleBackFromRegister(event) {
+  function handleBackFromRegister() {
     id("login-form").classList.remove("hidden");
     id("register").classList.add("hidden");
   }
 
   /**
    * Handles the registration form submission.
-   *
-   * @param {Event} event - The submit event.
    */
-  function handleRegistrationForm(event) {
+  function handleRegistrationForm() {
     let username = id("new-username").value;
     let password = id("new-password").value;
 
@@ -228,9 +226,8 @@
       .catch(error => {
         console.error("Error:", error);
       });
-      console.log("success")
-    id("new-username").value="";
-    id("new-password").value="";
+    id("new-username").value = "";
+    id("new-password").value = "";
     handleBackFromRegister();
   }
 
@@ -241,10 +238,8 @@
    */
   function bookRoom(event) {
     event.preventDefault();
-
     let username = id("checkout-username").value;
     let roomtype = document.querySelector("select[name='dropdown']").value;
-
     let booking = {
       username: username,
       roomtype: roomtype
@@ -270,7 +265,6 @@
     .catch(error => {
       console.error("Error:", error);
     });
-
     id("checkout-username").value = "";
     id("address").value = "";
     id("email").value = "";
